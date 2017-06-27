@@ -15,7 +15,6 @@
 		77A937441F02BC7E00D00591 /* GDI_Animation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A937431F02BC7E00D00591 /* GDI_Animation.framework */; };
 		77A937451F02BC7E00D00591 /* GDI_Animation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77A937431F02BC7E00D00591 /* GDI_Animation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77A937481F02BE7F00D00591 /* DemoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A937471F02BE7F00D00591 /* DemoCollectionViewController.swift */; };
-		77D136F41F02DE1E00F0A469 /* AnimationCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D136F31F02DE1E00F0A469 /* AnimationCurveView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +41,6 @@
 		77A9373C1F02BC3900D00591 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A937431F02BC7E00D00591 /* GDI_Animation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GDI_Animation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77A937471F02BE7F00D00591 /* DemoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCollectionViewController.swift; sourceTree = "<group>"; };
-		77D136F31F02DE1E00F0A469 /* AnimationCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCurveView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +81,6 @@
 				77A937471F02BE7F00D00591 /* DemoCollectionViewController.swift */,
 				77A937341F02BC3900D00591 /* Main.storyboard */,
 				77A937391F02BC3900D00591 /* LaunchScreen.storyboard */,
-				77D136F31F02DE1E00F0A469 /* AnimationCurveView.swift */,
 			);
 			path = "GDI-AnimationsDemo";
 			sourceTree = "<group>";
@@ -172,7 +169,6 @@
 				77A937331F02BC3900D00591 /* ViewController.swift in Sources */,
 				77A937311F02BC3900D00591 /* AppDelegate.swift in Sources */,
 				77A937481F02BE7F00D00591 /* DemoCollectionViewController.swift in Sources */,
-				77D136F41F02DE1E00F0A469 /* AnimationCurveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

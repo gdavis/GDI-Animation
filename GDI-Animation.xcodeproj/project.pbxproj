@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		77A9371C1F02B8DE00D00591 /* GDI_Animation.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A9371A1F02B8DE00D00591 /* GDI_Animation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		77A937231F02B95E00D00591 /* GDIPropertyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A937221F02B95E00D00591 /* GDIPropertyAnimation.swift */; };
+		77A937231F02B95E00D00591 /* GDIAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A937221F02B95E00D00591 /* GDIAnimationCurve.swift */; };
+		77D136F71F0307A600F0A469 /* GDIAnimationDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D136F61F0307A600F0A469 /* GDIAnimationDebugView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		77A937171F02B8DE00D00591 /* GDI_Animation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GDI_Animation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77A9371A1F02B8DE00D00591 /* GDI_Animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDI_Animation.h; sourceTree = "<group>"; };
 		77A9371B1F02B8DE00D00591 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77A937221F02B95E00D00591 /* GDIPropertyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDIPropertyAnimation.swift; sourceTree = "<group>"; };
+		77A937221F02B95E00D00591 /* GDIAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDIAnimationCurve.swift; sourceTree = "<group>"; };
+		77D136F61F0307A600F0A469 /* GDIAnimationDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDIAnimationDebugView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +52,8 @@
 			children = (
 				77A9371A1F02B8DE00D00591 /* GDI_Animation.h */,
 				77A9371B1F02B8DE00D00591 /* Info.plist */,
-				77A937221F02B95E00D00591 /* GDIPropertyAnimation.swift */,
+				77A937221F02B95E00D00591 /* GDIAnimationCurve.swift */,
+				77D136F61F0307A600F0A469 /* GDIAnimationDebugView.swift */,
 			);
 			path = "GDI-Animation";
 			sourceTree = "<group>";
@@ -134,7 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77A937231F02B95E00D00591 /* GDIPropertyAnimation.swift in Sources */,
+				77D136F71F0307A600F0A469 /* GDIAnimationDebugView.swift in Sources */,
+				77A937231F02B95E00D00591 /* GDIAnimationCurve.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +316,7 @@
 				77A937211F02B8DE00D00591 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

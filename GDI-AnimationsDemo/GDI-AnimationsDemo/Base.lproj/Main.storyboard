@@ -68,7 +68,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-A3-u4K" customClass="DemoAnimationCurveView" customModule="GDI_AnimationsDemo" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-A3-u4K" customClass="GDIAnimationDebugView">
                                             <rect key="frame" x="19" y="31" width="100" height="100"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
