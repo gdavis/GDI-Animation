@@ -16,7 +16,7 @@ open class GDIAnimationDebugView: UIView {
     
     // MARK: - Variables
     
-    var autoplay: Bool = false
+    public var autoplay: Bool = false
     public var animating: Bool {
         return self.animator != nil
     }

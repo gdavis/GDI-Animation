@@ -27,8 +27,6 @@ class DemoCollectionViewController: UICollectionViewController {
         CellData(curve: GDIAnimationCurve(.slamOut)),
         CellData(curve: GDIAnimationCurve(.strongBounceIn)),
         CellData(curve: GDIAnimationCurve(.strongBounceOut)),
-//        CellData(curve: GDIAnimationCurve(.dramaticEaseIn)),
-//        CellData(curve: GDIAnimationCurve(.dramaticEaseOut)),
     ]
     
     override func viewDidLoad() {

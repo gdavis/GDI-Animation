@@ -21,8 +21,9 @@ public enum GDIAnimationCurveType: Int {
     case slamOut
     case strongBounceIn
     case strongBounceOut
-    case dramaticEaseIn
-    case dramaticEaseOut
+//    case strongSpringIn,
+//    case strongSpringOut,
+//    case strongSpringInOut,
     
     private func controlPoints(for type: GDIAnimationCurveType) -> (CGPoint, CGPoint)? {
         switch type {
@@ -52,12 +53,6 @@ public enum GDIAnimationCurveType: Int {
             return (CGPoint(x: 0.1, y: 1.5),    CGPoint(x: 0.75, y: 1))
         case .strongBounceOut:
             return (CGPoint(x: 0.1, y: 0),     CGPoint(x: 1, y: -0.75))
-            
-        // dramatic bounce
-        case .dramaticEaseIn:
-            return (CGPoint(x: 0.5, y: 1.5),    CGPoint(x: 0.5, y: 1))
-        case .dramaticEaseOut:
-            return (CGPoint(x: 0, y: 1),        CGPoint(x: 0, y: 1))
             
         default: return nil
         }
@@ -99,10 +94,6 @@ public enum GDIAnimationCurveType: Int {
             return "Strong Bounce In"
         case .strongBounceOut:
             return "Strong Bounce Out"
-        case .dramaticEaseIn:
-            return "Dramatic Ease In"
-        case .dramaticEaseOut:
-            return "Dramatic Ease Out"
         }
     }
 }
