@@ -12,20 +12,34 @@ import GDI_Animation
 fileprivate let reuseIdentifier = "Cell"
 
 fileprivate struct CellData {
-    let title: String
     let curve: GDIAnimationCurve
 }
 
 class DemoCollectionViewController: UICollectionViewController {
     
     private let demoAnimations: [CellData] = [
-        CellData(title: "linear", curve: GDIAnimationCurve(.linear)),
-        CellData(title: "hard ease in", curve: GDIAnimationCurve(.hardEaseIn)),
-        CellData(title: "hard ease out", curve: GDIAnimationCurve(.hardEaseOut))
+        CellData(curve: GDIAnimationCurve(.linear)),
+        CellData(curve: GDIAnimationCurve(.softInOut)),
+        CellData(curve: GDIAnimationCurve(.strongIn)),
+        CellData(curve: GDIAnimationCurve(.strongOut)),
+        CellData(curve: GDIAnimationCurve(.strongInOut)),
+        CellData(curve: GDIAnimationCurve(.slamIn)),
+        CellData(curve: GDIAnimationCurve(.slamOut)),
+        CellData(curve: GDIAnimationCurve(.strongBounceIn)),
+        CellData(curve: GDIAnimationCurve(.strongBounceOut)),
+//        CellData(curve: GDIAnimationCurve(.dramaticEaseIn)),
+//        CellData(curve: GDIAnimationCurve(.dramaticEaseOut)),
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.itemSize = CGSize(width: view.frame.width/2 - 5, height: layout.itemSize.height)
     }
 
     // MARK: UICollectionViewDataSource
@@ -49,9 +63,26 @@ class DemoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var curveView: GDIAnimationDebugView!
+    @IBOutlet weak var playIcon: UIImageView!
     
     fileprivate func configure(for cellData: CellData) {
-        nameLabel.text = cellData.title
+        nameLabel.text = cellData.curve.gdiCurveType.name
         curveView.configure(for: cellData.curve)
+    }
+    
+    @IBAction func playTapped(_ sender: Any) {
+        if curveView.animating == false {
+            playIcon.isHidden = true
+            curveView.performAnimation()
+        } else {
+            playIcon.isHidden = false
+            curveView.stopAnimation()
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        curveView.stopAnimation()
+        playIcon.isHidden = false
     }
 }

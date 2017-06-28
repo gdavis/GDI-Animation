@@ -47,47 +47,67 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bK1-9D-8YH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Yw8-nF-nZS">
-                            <size key="itemSize" width="138" height="138"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Yw8-nF-nZS">
+                            <size key="itemSize" width="138" height="190"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Spg-5k-aj1" customClass="DemoCollectionViewCell" customModule="GDI_AnimationsDemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="138" height="138"/>
+                                <rect key="frame" x="0.0" y="0.0" width="138" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="138" height="138"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="138" height="190"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dri-Ss-dZd">
-                                            <rect key="frame" x="48" y="7" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <rect key="frame" x="48" y="7" width="42.5" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-A3-u4K" customClass="GDIAnimationDebugView">
-                                            <rect key="frame" x="19" y="31" width="100" height="100"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="Ady-tl-Ddj"/>
-                                                <constraint firstAttribute="height" constant="100" id="V2B-FU-5lI"/>
-                                            </constraints>
+                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-A3-u4K" customClass="GDIAnimationDebugView" customModule="GDI_Animation">
+                                            <rect key="frame" x="2" y="29.5" width="134" height="158.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="1" verticalHuggingPriority="1" image="play-icon" translatesAutoresizingMaskIntoConstraints="NO" id="JUd-o0-rzw">
+                                            <rect key="frame" x="2" y="0.0" width="134" height="188"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <gestureRecognizers/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bDd-Qm-IaL">
+                                            <rect key="frame" x="2" y="0.0" width="134" height="188"/>
+                                            <connections>
+                                                <action selector="playTapped:" destination="Spg-5k-aj1" eventType="touchUpInside" id="68F-5d-Isy"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.49233294547872331" green="0.49233294547872331" blue="0.49233294547872331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="JUd-o0-rzw" firstAttribute="leading" secondItem="gPN-A3-u4K" secondAttribute="leading" id="2q9-3b-40w"/>
+                                    <constraint firstItem="gPN-A3-u4K" firstAttribute="leading" secondItem="Spg-5k-aj1" secondAttribute="leading" constant="2" id="4eg-OK-Yrv"/>
+                                    <constraint firstItem="bDd-Qm-IaL" firstAttribute="top" secondItem="Spg-5k-aj1" secondAttribute="top" id="7sz-bh-gTb"/>
                                     <constraint firstItem="gPN-A3-u4K" firstAttribute="centerX" secondItem="Spg-5k-aj1" secondAttribute="centerX" id="9Ue-su-8fG"/>
+                                    <constraint firstItem="bDd-Qm-IaL" firstAttribute="trailing" secondItem="gPN-A3-u4K" secondAttribute="trailing" id="IQR-Ld-jtM"/>
+                                    <constraint firstAttribute="bottom" secondItem="gPN-A3-u4K" secondAttribute="bottom" constant="2" id="KCc-pS-kqZ"/>
+                                    <constraint firstItem="JUd-o0-rzw" firstAttribute="top" secondItem="Spg-5k-aj1" secondAttribute="top" id="MjS-rp-PUJ"/>
                                     <constraint firstItem="dri-Ss-dZd" firstAttribute="top" secondItem="Spg-5k-aj1" secondAttribute="top" constant="7" id="Prt-Vn-dbe"/>
+                                    <constraint firstItem="JUd-o0-rzw" firstAttribute="trailing" secondItem="gPN-A3-u4K" secondAttribute="trailing" id="Q9W-Ok-NGl"/>
                                     <constraint firstItem="dri-Ss-dZd" firstAttribute="centerX" secondItem="Spg-5k-aj1" secondAttribute="centerX" id="YCX-tI-s8o"/>
+                                    <constraint firstItem="JUd-o0-rzw" firstAttribute="bottom" secondItem="gPN-A3-u4K" secondAttribute="bottom" id="c11-Dy-NHe"/>
+                                    <constraint firstItem="bDd-Qm-IaL" firstAttribute="leading" secondItem="gPN-A3-u4K" secondAttribute="leading" id="hmG-Rk-0yK"/>
+                                    <constraint firstItem="bDd-Qm-IaL" firstAttribute="bottom" secondItem="gPN-A3-u4K" secondAttribute="bottom" id="o39-W8-mEA"/>
+                                    <constraint firstAttribute="trailing" secondItem="gPN-A3-u4K" secondAttribute="trailing" constant="2" id="tcw-XN-nhf"/>
                                     <constraint firstItem="gPN-A3-u4K" firstAttribute="top" secondItem="dri-Ss-dZd" secondAttribute="bottom" constant="3" id="x4K-Ld-L8z"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="curveView" destination="gPN-A3-u4K" id="0bZ-co-zZP"/>
                                     <outlet property="nameLabel" destination="dri-Ss-dZd" id="17x-tw-cTo"/>
+                                    <outlet property="playIcon" destination="JUd-o0-rzw" id="GUF-oV-0dJ"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -102,4 +122,7 @@
             <point key="canvasLocation" x="898.39999999999998" y="123.68815592203899"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="play-icon" width="62" height="62"/>
+    </resources>
 </document>

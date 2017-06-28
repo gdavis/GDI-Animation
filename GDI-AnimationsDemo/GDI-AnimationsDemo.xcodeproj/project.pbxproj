@@ -77,10 +77,10 @@
 			children = (
 				77A937421F02BC5500D00591 /* Assets */,
 				77A937301F02BC3900D00591 /* AppDelegate.swift */,
-				77A937321F02BC3900D00591 /* ViewController.swift */,
 				77A937471F02BE7F00D00591 /* DemoCollectionViewController.swift */,
 				77A937341F02BC3900D00591 /* Main.storyboard */,
 				77A937391F02BC3900D00591 /* LaunchScreen.storyboard */,
+				77A937321F02BC3900D00591 /* ViewController.swift */,
 			);
 			path = "GDI-AnimationsDemo";
 			sourceTree = "<group>";

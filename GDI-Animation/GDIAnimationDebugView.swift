@@ -10,16 +10,27 @@ import Foundation
 
 open class GDIAnimationDebugView: UIView {
     
+    // MARK: - Constants
+    
+    let graphSize = CGSize(width: 100, height: 100)
+    
+    // MARK: - Variables
+    
+    var autoplay: Bool = false
+    public var animating: Bool {
+        return self.animator != nil
+    }
+    
     var curve: GDIAnimationCurve? {
         didSet {
-            updateLayers()
+            setNeedsLayout()
         }
     }
     
     let curveLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.white.cgColor
+        layer.strokeColor = UIColor.red.cgColor
         layer.lineWidth = 2
         return layer
     }()
@@ -28,18 +39,28 @@ open class GDIAnimationDebugView: UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         view.backgroundColor = UIColor.white
         view.layer.borderColor = UIColor.black.withAlphaComponent(0.5).cgColor
-        view.clipsToBounds = true
+        view.layer.borderWidth = 3.0
         view.layer.cornerRadius = 12.5
+        view.clipsToBounds = true
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.darkGray.cgColor
-        layer.backgroundColor = UIColor.gray.cgColor
-        
-        addSubview(animatedDot)
+    private var offsetX: CGFloat {
+        return bounds.midX - graphSize.width * 0.5
+    }
+    
+    private var offsetY: CGFloat {
+        return bounds.midY - graphSize.height * 0.5
+    }
+    
+    private var animatedLineY: CGFloat {
+        return offsetY + graphSize.height + animatedDot.frame.height * 0.5 + 5
+    }
+    
+    // MARK: - Initialization
+    
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: graphSize.width, height: graphSize.height + animatedDot.frame.height)
     }
     
     public convenience init(curve: GDIAnimationCurveType, frame: CGRect) {
@@ -47,77 +68,163 @@ open class GDIAnimationDebugView: UIView {
         configure(for: GDIAnimationCurve(curve))
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.backgroundColor = UIColor.gray.cgColor
+        addSubview(animatedDot)
     }
     
     open func configure(for animationCurve: GDIAnimationCurve) {
         curve = animationCurve
-        setNeedsDisplay()
     }
+    
+    private var previousViewSize: CGSize?
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        updateLayers()
+        
+        if previousViewSize == nil || bounds.size != previousViewSize {
+            stopAnimation()
+            updateCurvePath()
+            updateViewFrames()
+            
+            if autoplay {
+                performAnimation()
+            }
+            previousViewSize = bounds.size
+        }
     }
     
     open override func didMoveToWindow() {
         super.didMoveToWindow()
-        guard let _ = window else { return }
-        performAnimation()
+        if let _ = window, autoplay == true {
+            performAnimation()
+        } else {
+            stopAnimation()
+        }
     }
     
-    private func performAnimation() {
+    // MARK: - Animation
+    
+    private var animator: UIViewPropertyAnimator?
+    
+    public func performAnimation() {
         guard let curve = curve else { return }
+        guard animator == nil else { return }
         
-        // reset dot to left side
-        animatedDot.transform = CGAffineTransform.identity
+        let startTransform = CGAffineTransform(translationX: 0, y: 0)
+        let endTransform = CGAffineTransform(translationX: graphSize.width, y: 0)
+        
+        animatedDot.transform = startTransform
         
         // create animation to move to right side of view
-        let animator = UIViewPropertyAnimator(duration: 1.0, timingParameters: curve)
+        animator = UIViewPropertyAnimator(duration: 1.0, timingParameters: curve)
         
-        animator.addAnimations {
-            self.animatedDot.transform = CGAffineTransform(translationX: 100, y: 0)
+        animator?.addAnimations {
+            self.animatedDot.transform = endTransform
         }
         
-        animator.addCompletion { (position) in
-            guard position == .end else { return }
+        animator?.addCompletion { [weak self] (position) in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                self.animatedDot.transform = CGAffineTransform.identity
+                guard let animator = self?.animator, animator.state == .inactive else { return }
+                self?.animatedDot.transform = startTransform
             })
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-                self.performAnimation()
+                guard let animator = self?.animator, animator.state == .inactive else { return }
+                self?.animator = nil
+                self?.performAnimation()
             })
         }
         
-        animator.startAnimation()
+        animator?.startAnimation()
     }
     
-    private func updateLayers() {
-        guard let curve = curve else { return }
+    public func stopAnimation() {
+        guard let animator = animator else { return }
+        self.animator = nil
+        animator.stopAnimation(true)
+        animator.finishAnimation(at: .start)
+    }
+    
+    // MARK: - Updates
+    
+    private func updateViewFrames() {
+        curveLayer.frame = bounds
+        animatedDot.frame = CGRect(origin: CGPoint(x: offsetX - animatedDot.frame.width * 0.5, y: animatedLineY - animatedDot.frame.height * 0.5), size: animatedDot.frame.size)
+    }
+    
+    private func updateCurvePath() {
+        guard let curve = curve, let controlPoint1 = curve.gdiCurveType.controlPoint1, let controlPoint2 = curve.gdiCurveType.controlPoint2 else { return }
         
         let path = CGMutablePath()
-        let start = CGPoint(x: 0, y: bounds.height)
-        let end = CGPoint(x: bounds.width, y: 0)
+        let start = CGPoint(x: offsetX, y: offsetY + graphSize.height)
+        let end = CGPoint(x: offsetX + graphSize.width, y: offsetY)
         path.move(to: start)
         
-        let curveType = curve.gdiCurveType
-        let control1 = CGPoint(x: bounds.width * curveType.controlPoint1.x, y: bounds.height - bounds.height * curveType.controlPoint1.y)
-        let control2 = CGPoint(x: bounds.width * curveType.controlPoint2.x, y: bounds.height - bounds.height * curveType.controlPoint2.y)
+        let control1 = CGPoint(x: offsetX + graphSize.width * controlPoint1.x, y: offsetY + graphSize.height - graphSize.height * controlPoint1.y)
+        let control2 = CGPoint(x: offsetX + graphSize.width * controlPoint2.x, y: offsetY + graphSize.height - graphSize.height * controlPoint2.y)
         path.addCurve(to: end, control1: control1, control2: control2)
         curveLayer.path = path
         
-        curveLayer.frame = bounds
         if curveLayer.superlayer == nil {
             layer.addSublayer(curveLayer)
         }
     }
     
+    // MARK: - Drawing
+    
     open override func draw(_ rect: CGRect) {
         super.draw(rect)
         
+        guard let context = UIGraphicsGetCurrentContext() else { return }
         
+        // fill bg for graph
+        context.setFillColor(UIColor.white.withAlphaComponent(0.25).cgColor)
+        context.fill(CGRect(x: offsetX, y: offsetY, width: graphSize.width, height: graphSize.height))
+        
+        // set stroke style for graph grid lines
+        context.setLineWidth(1)
+        context.setStrokeColor(UIColor.white.withAlphaComponent(0.25).cgColor)
+        
+        for i in 0...4 {
+            // draw vertical column lines
+            let xp: CGFloat = CGFloat(i) * 25.0
+            context.move(to: CGPoint(x: offsetX + xp, y: offsetY))
+            context.addLine(to: CGPoint(x: offsetX + xp, y: offsetY + graphSize.height))
+            context.strokePath()
+            
+            // draw vertical rows lines
+            let yp: CGFloat = CGFloat(i) * 25.0
+            context.move(to: CGPoint(x: offsetX, y: offsetY + yp))
+            context.addLine(to: CGPoint(x: offsetX + graphSize.width, y: offsetY + yp))
+            context.strokePath()
+        }
+        
+        // draw left and bottom graph lines
+        context.setLineWidth(2)
+        context.setStrokeColor(UIColor.white.cgColor)
+        context.move(to: CGPoint(x: offsetX, y: offsetY))
+        context.addLine(to: CGPoint(x: offsetX, y: offsetY + graphSize.height))
+        context.addLine(to: CGPoint(x: offsetX + graphSize.width, y: offsetY + graphSize.height))
+        context.strokePath()
+        
+        // draw animation path
+        context.setStrokeColor(UIColor.white.withAlphaComponent(0.5).cgColor)
+        context.move(to: CGPoint(x: offsetX, y: animatedLineY))
+        context.addLine(to: CGPoint(x: offsetX + graphSize.width, y: animatedLineY))
+        context.strokePath()
     }
 }
