@@ -21,6 +21,7 @@ public enum GDIAnimationCurveType: Int {
     case slamOut
     case strongBounceIn
     case strongBounceOut
+    case strongBounceInOut
 //    case strongSpringIn,
 //    case strongSpringOut,
 //    case strongSpringInOut,
@@ -28,33 +29,63 @@ public enum GDIAnimationCurveType: Int {
     private func controlPoints(for type: GDIAnimationCurveType) -> (CGPoint, CGPoint)? {
         switch type {
         case .linear:
-            return (CGPoint(x: 0, y: 0),        CGPoint(x: 1, y: 1))
-            
+            return (
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 1, y: 1)
+            )
+
         // soft
         case .softInOut:
-            return (CGPoint(x: 0.5, y: 0),      CGPoint(x: 0.5, y: 1))
-            
+            return (
+                CGPoint(x: 0.5, y: 0),
+                CGPoint(x: 0.5, y: 1)
+            )
+
         // strong
         case .strongIn:
-            return (CGPoint(x: 0.1, y: 1),      CGPoint(x: 0.1, y: 1))
+            return (
+                CGPoint(x: 0.1, y: 1),
+                CGPoint(x: 0.1, y: 1)
+            )
         case .strongOut:
-            return (CGPoint(x: 0.9, y: 0.1),     CGPoint(x: 1, y: 0.1))
+            return (
+                CGPoint(x: 0.9, y: 0.1),
+                CGPoint(x: 1, y: 0.1)
+            )
         case .strongInOut:
-            return (CGPoint(x: 0.9, y: 0),     CGPoint(x: 0.1, y: 1))
-            
+            return (
+                CGPoint(x: 0.9, y: 0),
+                CGPoint(x: 0.1, y: 1)
+            )
+
         // slam!
         case .slamIn:
-            return (CGPoint(x: 0, y: 1),        CGPoint(x: 0, y: 1))
+            return (
+                CGPoint(x: 0, y: 1),
+                CGPoint(x: 0, y: 1)
+            )
         case .slamOut:
-            return (CGPoint(x: 1, y: 0),        CGPoint(x: 1, y: 0))
-            
+            return (
+                CGPoint(x: 1, y: 0),
+                CGPoint(x: 1, y: 0)
+            )
+
         // strong bounce
         case .strongBounceIn:
-            return (CGPoint(x: 0.1, y: 1.5),    CGPoint(x: 0.75, y: 1))
+            return (
+                CGPoint(x: 0.1, y: 1.5),
+                CGPoint(x: 0.75, y: 1)
+            )
         case .strongBounceOut:
-            return (CGPoint(x: 0.1, y: 0),     CGPoint(x: 1, y: -0.75))
-            
-        default: return nil
+            return (
+                CGPoint(x: 0.1, y: 0),
+                CGPoint(x: 1, y: -0.75)
+            )
+        case .strongBounceInOut:
+            return (
+                CGPoint(x: 0.8, y: -1),
+                CGPoint(x: 0.2, y: 2)
+            )
         }
     }
     
@@ -94,6 +125,8 @@ public enum GDIAnimationCurveType: Int {
             return "Strong Bounce In"
         case .strongBounceOut:
             return "Strong Bounce Out"
+        case .strongBounceInOut:
+            return "Strong Bounce In Out"
         }
     }
 }
